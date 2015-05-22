@@ -144,8 +144,10 @@
 			viewDistance: 3,
 
 			// Script dependencies to load
-			dependencies: []
+			dependencies: [],
 
+			// Base path of the page
+			basePath: ''
 		},
 
 		// Flags if reveal.js is loaded (has dispatched the 'ready' event)
@@ -3090,6 +3092,8 @@
 
 		var hash = window.location.hash;
 
+			hash.replace(config.basePath, '');
+
 		// Attempt to parse the hash as either an index or name
 		var bits = hash.slice( 2 ).split( '/' ),
 			name = hash.replace( /#|\//gi, '' );
@@ -3146,7 +3150,8 @@
 				writeURLTimeout = setTimeout( writeURL, delay );
 			}
 			else if( currentSlide ) {
-				var url = '/';
+				var basePath = ( config.basePath !== '' ? config.basePath + '/' : '' );
+				var url = '/' + basePath;
 
 				// Attempt to create a named link based on the slide's ID
 				var id = currentSlide.getAttribute( 'id' );
@@ -3157,7 +3162,7 @@
 
 				// If the current slide has an ID, use that as a named link
 				if( typeof id === 'string' && id.length ) {
-					url = '/' + id;
+					url = '/' + basePath + id;
 				}
 				// Otherwise use the /h/v index
 				else {
