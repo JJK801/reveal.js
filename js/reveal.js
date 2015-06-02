@@ -3092,7 +3092,7 @@
 
 		var hash = window.location.hash;
 
-			hash.replace(config.basePath, '');
+			hash = hash.replace(config.basePath + '/', '');
 
 		// Attempt to parse the hash as either an index or name
 		var bits = hash.slice( 2 ).split( '/' ),
